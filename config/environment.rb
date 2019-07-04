@@ -3,6 +3,7 @@ require "active_record"
 require "rake"
 require "sqlite3"
 require "pathname"
+# require 'byebug'
 
 
 # Identify the root directory for the application
@@ -29,9 +30,9 @@ ActiveRecord::Base.logger = nil
 
 
 # Configure the database depending upon the value of ENV['AR_ENV']
-database_config = YAML::load(File.open('db/config.yml'))
-ActiveRecord::Base.establish_connection(database_config["development"])
-
+database_config = { :adapter  =>  "sqlite3",
+                    :database => "#{APP_ROOT}/db/database.sqlite3" }
+ActiveRecord::Base.establish_connection(database_config)
 
 # Establish connection between models and tables
 ActiveRecord::Base.connection
